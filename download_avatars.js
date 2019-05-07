@@ -41,7 +41,11 @@ function downloadImageByURL(url, filePath) {
         .pipe(fs.createWriteStream(filePath));
 }
 
-getRepoContributors("jquery", "jquery", function (err, result) {
+var owner = process.argv[2];
+var repo = process.argv[3];
+
+getRepoContributors(owner, repo, function (err, result) {
     console.log("Errors:", err);
     console.log("Result:", result);
 });
+
