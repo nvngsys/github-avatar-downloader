@@ -16,8 +16,9 @@ function getRepoContributors(repoOwner, repoName, cb) {
     request(options, function (err, res, body) {
         var path = "./avatar";
         var data = JSON.parse(body);
+
         data.forEach(function (each) {
-            var pathExtended = path + '/' + each.login + '.jpg';
+            var pathExtended = `${path}/${each.login}.jpg`;
             downloadImageByURL(each.avatar_url, pathExtended);
         });
 
@@ -31,10 +32,9 @@ function downloadImageByURL(url, filePath) {
             throw err;
         })
         .on('response', function (response) {
-            //console.log('Response Status Code: ', response.statusCode);
             console.log(`Response Status Code: ', ${response.statusMessage} ${response.headers['content-type']}`);
         })
-        
+
         .on('end', function () {
             console.log('Download complete')
         })
